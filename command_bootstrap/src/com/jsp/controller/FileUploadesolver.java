@@ -20,7 +20,6 @@ public class FileUploadesolver {
 				for(FileItem item: items) {
 					String fileName = new File(item.getName()).getName(); //사용자
 					fileName = MakeFileName.toUUIDFileName(fileName, "$$"); //고유
-					
 					String filePath = uploadPath + File.separator + fileName;
 					File storeFile = new File(filePath);
 					
