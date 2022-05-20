@@ -211,30 +211,100 @@ function upload_go(){
 	if(!$('input[name="pictureFile"]').val()){
 		alert("사진을 선택하세요.");
 		$('input[name="pictureFile"]').click();
-		return
+		return;
 	}
 	if($('input[name="checkUpload"]').val() == 1){
 		alert("이미 업로드 된 사진입니다.");
-		return
+		return;
 	}
 	
 	var formData = new FormData($('form[role="imageForm"]')[0]);
 	
 	$.ajax({
-		url = "picture",
+		url : "picture",
 		data : formData,
 		type : "post",
 		processData : false,
 		contentType : false,
 		success : function(data){
-			
+			//업로드 확인변수 세팅
+			$('input[name="checkUpload"]').val(1);
+			// 저장된 파일명 저장
+			$('input#oldFile').val(data); //변경시 삭제될 파일명
+			$('form[role="form"] input[name="picture"]').val(data);
+			alert("사진이 업로드 되었습니다.");
 		},
 		error : function(error){
+			alert("현재 사진 업로드가 불가합니다. \n 관리자에게 연락바랍니다.");
 			
 		}
 	});
 	
 }
+
+	var checkedID = "";
+	function idCheck_go(){
+		//alert("id check btn click")
+		
+		var input_ID = $('input[name="id"]');
+		
+		if(!input_ID.val()){
+			alert("아이디를 입력하시오");
+			input_ID.focus();
+			return;
+		}
+	$.ajax({
+		url : "idCheck?id="+input_ID.val().trim(),
+		method : "get",
+		success : function(result){
+			if(result.toUpperCase() == "DUPLICATED"){
+				alert("중복된 아이디 입니다.");
+				$('input[name="id"]').focus();
+				
+			}else{
+				alert("사용가능한 아이디 입니다.");
+				checkedID = input_ID.val().trim();
+				$('input[name = "id"]').val(input_ID.val().trim());
+				
+			}
+		},
+		error : function(error){
+			alert("시스템 장애로 가입이 불가합니다.")
+		}
+		
+	});	
+		
+	}
+	function regist_go(){
+		
+		var uploadCheck = $('input[name="checkUpload"]').val();
+		if(uploadCheck =="0"){
+			alert("사진업로드는 필수 입니다.");
+			return;
+		}
+		
+		if(!$('input[name="id"]').val()){
+			alert("아이디는 필수입니다.");
+			return;
+		}
+		
+		if($('input[name="id"]').val() != checkedID){
+			alert("아이디는 중복 확인이 필요합니다.");
+			return;
+		}
+		if(!$('input[name="pwd"]').val()){
+			alert("패스워드는 필수입니다.");
+			return;
+		}
+		
+		if(!$('input[name="name"]').val()){
+			alert("이름은 필수입니다.");
+			return;
+		}
+		
+		var form = $('form[role="form"]');
+		form.submit();
+	}
 	</script>
 <script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

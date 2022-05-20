@@ -1,6 +1,10 @@
 package com.jsp.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,10 +40,22 @@ public class MemberPictureUploadServlet extends HttpServlet {
 			
 			// 3. 업로드된 이미지 저장
 			FileItem[] items = multi.getFileItems("pictureFile");
-			FileUploadesolver.fileUpload(items, uploadPath);
+			List<File> uploadFiles = FileUploadesolver.fileUpload(items, uploadPath);
+			
+			String uploadFileName = uploadFiles.get(0).getName();
+			
 			// 4. 이전 이미지 삭제
+			String oldPicture = multi.getParameter("oldPicture");
+			File oldFile = new File(uploadPath+File.separator+ oldPicture);
+			if(oldFile.exists()) {
+				oldFile.delete();
+			}
 			
 			// 5. 저장한 파일명 보내기 
+			response.setCharacterEncoding("utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(uploadFileName);
+			
 			
 			
 		}catch (NotMultipartFormDataException e) {
