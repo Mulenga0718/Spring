@@ -202,7 +202,9 @@ function picture_go(){
 			   'background-repeat' : 'no-repeat'
 		   });
 	   }
+	   
 	   reader.readAsDataURL(picture.files[0])
+	   
    }
    
 }

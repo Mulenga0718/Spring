@@ -35,7 +35,7 @@ public class HttpRequestParameterAdapter {
 			}
 		}
 		
-		return null;
+		return obj;
 		
 	}
 }
