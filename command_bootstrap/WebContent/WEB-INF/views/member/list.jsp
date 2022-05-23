@@ -110,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						
 						<c:forEach items="${memberList}"  var ="member">
 						<tr>
-							<td onclick="" style="cursor: pointer">사진</td>
+							<td onclick="Openwindow('detail?id=${member.id}', '회원상세', 700,800)" style="cursor: pointer">사진</td>
 							<td>${member.id}</td>
 							<td>${member.pwd}</td>
 							<td>${member.name}</td>

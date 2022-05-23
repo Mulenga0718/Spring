@@ -10,10 +10,18 @@ import com.jsp.dao.SearchMemberDaoImpl;
 import com.jsp.datasource.OracleMybatisSqlSessionFactory;
 
 public class SearchMemberServiceImpl extends MemberServiceImpl {
-
-	 private SqlSessionFactory sqlSessionFactory = new OracleMybatisSqlSessionFactory();
-	 private SearchMemberDao memberDao = new SearchMemberDaoImpl();
+	
+	private SqlSessionFactory sqlSessionFactory;
+	private SearchMemberDao memberDao;
 	 
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		this.sqlSessionFactory = sqlSessionFactory;
+	}
+
+	public void setMemberDao(SearchMemberDao memberDao) {
+		this.memberDao = memberDao;
+	}
+
 	@Override 
 	public Map<String,Object> getMemberListForPage(Criteria cri) throws Exception{
 	    

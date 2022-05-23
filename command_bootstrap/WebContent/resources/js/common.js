@@ -8,3 +8,23 @@
 									+ winleft +", resizable=yes, status=yes"  );
 			win.focus() ; 
 		}
+//팝업창 닫기 
+		function CloseWindow(){
+			window.opener.location.reload(true);
+			window.close();
+			
+		}
+
+		//사용자 사진 출력 
+		function MemberPictureThumb(contextPath){
+			for(var target of document.querySelectorAll('.manPicture')){
+				var id = target.getAttribute('data_id');
+				
+				target.style.backgroundImage = "url('"+contextPath+"/member/getPicture?id="+id+"')";
+				target.style.backgroundPosition = "center";
+				target.style.backgroundRepeat ="no-repeat";
+				target.style.backgroundSize = "cover";
+				
+			}
+		}
+		
