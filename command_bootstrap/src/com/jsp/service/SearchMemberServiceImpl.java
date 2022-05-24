@@ -6,20 +6,22 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.jsp.command.Criteria;
 import com.jsp.dao.SearchMemberDao;
-import com.jsp.dao.SearchMemberDaoImpl;
+import com.jsp.dao.SearchMemberDAOImpl;
 import com.jsp.datasource.OracleMybatisSqlSessionFactory;
 
 public class SearchMemberServiceImpl extends MemberServiceImpl {
 	
 	private SqlSessionFactory sqlSessionFactory;
-	private SearchMemberDao memberDao;
+	private SearchMemberDao memberDAO;
 	 
 	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		super.setSqlSessionFactory(sqlSessionFactory);
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
 
-	public void setMemberDao(SearchMemberDao memberDao) {
-		this.memberDao = memberDao;
+	public void setMemberDAO(SearchMemberDao memberDAO) {
+		super.setMemberDAO(memberDAO);
+		this.memberDAO = memberDAO;
 	}
 
 	@Override 

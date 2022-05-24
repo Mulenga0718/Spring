@@ -1,6 +1,7 @@
 package com.jsp.listener;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -48,7 +49,7 @@ public class ApplicationContextInitListener implements ServletContextListener {
 			
 			NodeList beans = root.getElementsByTagName("bean"); 
 			Map<String, Object> applicationContext = 
-					ApplicationContext.getApplicationContext(); // application contex
+					ApplicationContext.getApplicationContext(); // application context
 			for (int i = 0; i < beans.getLength(); i++) {
 				Node bean = beans.item(i);
 				if (bean.getNodeType() == Node.ELEMENT_NODE) {
@@ -56,11 +57,49 @@ public class ApplicationContextInitListener implements ServletContextListener {
 					String id = ele.getAttribute("id");
 					String classType = ele.getAttribute("class");
 					
-					
-					
 					Class<?> cls = Class.forName(classType);
 					Object targetObj = cls.newInstance();
 					applicationContext.put(id, targetObj);
+				}
+			}
+			
+			//의존주입
+			for (int i = 0; i < beans.getLength(); i++) {
+				Node bean = beans.item(i);
+				if(bean.getNodeType() == Node.ELEMENT_NODE) {
+					Element eleBean = (Element)bean;
+					
+					NodeList properties = bean.getChildNodes();
+					for(int j = 0; j< properties.getLength(); j++) {
+						Node property = properties.item(j);
+						if(!property.getNodeName().equals("property")) continue;
+						
+						if(property.getNodeType() == Node.ELEMENT_NODE) {
+							Element ele = (Element)property;
+							String name = ele.getAttribute("name");
+							String ref = ele.getAttribute("ref-value");
+							
+							//System.out.printf("name = %s, ref-value=%s\n", name,ref);
+							
+						String setMethodName = "set"+name.substring(0,1).toUpperCase()+name.substring(1);
+						String className = eleBean.getAttribute("class");
+						Class<?> classType = Class.forName(className);
+						
+						Method[] methods = classType.getMethods();
+						
+						if(methods != null)for (Method method : methods) {
+							
+							if(method.getName().equals(setMethodName)) {
+								method.invoke(applicationContext.get(eleBean.getAttribute("id")),
+										applicationContext.get(ref));
+								
+								System.out.println("[invoke]"+applicationContext.get(eleBean.getAttribute("id"))+":"+applicationContext.get(ref));
+								
+							}
+							
+						}
+						}
+					}
 				}
 			}
 			
@@ -68,10 +107,7 @@ public class ApplicationContextInitListener implements ServletContextListener {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
+	
     }
 	
 }

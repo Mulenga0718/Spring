@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.jsp.command.SearchCriteria;
 import com.jsp.dto.MemberVO;
 
-public class SearchMemberDaoImpl extends MemberDAOImpl implements SearchMemberDao {
+public class SearchMemberDAOImpl extends MemberDAOImpl implements SearchMemberDao {
 
 	@Override
 	public List<MemberVO> selectSearchMemberList(SqlSession session, SearchCriteria cri) throws Exception {

@@ -54,7 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <section class="content">
 	<div class="card">
 		<div class="card-header with-border">
-			<button type="button" class="btn btn-primary" onclick="OpenWindow('regist','회원등록',800,800)">회원등록</button>
+			<button type="button" class="btn btn-primary" onclick="OpenWindow('registForm.do','회원등록',800,800)">회원등록</button>
 			<div id="keyword" class="card-tools" style="width: 550px;">
 				<div class="input-group row">
 					<!-- search bar -->
@@ -110,7 +110,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						
 						<c:forEach items="${memberList}"  var ="member">
 						<tr>
-							<td onclick="Openwindow('detail?id=${member.id}', '회원상세', 700,800)" style="cursor: pointer">사진</td>
+							<td onclick="OpenWindow('detail.do?id=${member.id}', '회원상세', 700,800)" style="cursor: pointer; margin:0px; padding:0px;">
+							<span class="manPicture" data_id="${member.id }" style="display:block;width:40px;height:40px;margin:0 auto;"></span>
+							</td>
 							<td>${member.id}</td>
 							<td>${member.pwd}</td>
 							<td>${member.name}</td>
@@ -186,7 +188,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<script>
 		function list_go(page,url){
 			//alert(page);
-			if(!url) url="list";
+			if(!url) url="list.do";
 			
 			var jobForm=$('#jobForm');
 			jobForm.find("[name='page']").val(page);
@@ -200,6 +202,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			
 		}
 		
+		</script>
+		
+		<script type="text/javascript">
+		window.onload = function(){
+			MemberPictureThumb("<%=request.getContextPath()%>");
+		}
+		 
+
 		</script>
 		<!-- Control Sidebar -->
 		<aside class="control-sidebar control-sidebar-dark">
@@ -224,7 +234,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<!-- ./wrapper -->
 
 	<!-- REQUIRED SCRIPTS -->
-
+	
 	<!-- jQuery -->
 	<script
 		src="<%=request.getContextPath()%>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>

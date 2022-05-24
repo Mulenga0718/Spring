@@ -54,7 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- form start -->
 			<div class="card">				
 				<div class="register-card-body">
-					<form role="form" class="form-horizontal" action="regist" method="post">						
+					<form role="form" class="form-horizontal" action="regist.do" method="post">						
 						<input type="hidden" name="picture" />
 						<div class="input-group mb-3">
 							<div class="mailbox-attachments clearfix" style="text-align: center;">
@@ -223,7 +223,7 @@ function upload_go(){
 	var formData = new FormData($('form[role="imageForm"]')[0]);
 	
 	$.ajax({
-		url : "picture",
+		url : "picture.do",
 		data : formData,
 		type : "post",
 		processData : false,
@@ -256,7 +256,7 @@ function upload_go(){
 			return;
 		}
 	$.ajax({
-		url : "idCheck?id="+input_ID.val().trim(),
+		url : "idCheck.do?id="+input_ID.val().trim(),
 		method : "get",
 		success : function(result){
 			if(result.toUpperCase() == "DUPLICATED"){

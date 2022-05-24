@@ -11,13 +11,21 @@ import com.jsp.command.Criteria;
 import com.jsp.command.PageMaker;
 import com.jsp.dao.MemberDAOImpl;
 import com.jsp.dao.MemberDao;
+import com.jsp.dao.SearchMemberDao;
 import com.jsp.datasource.OracleMybatisSqlSessionFactory;
 import com.jsp.dto.MemberVO;
 
 public class MemberServiceImpl implements MemberService {
-	private OracleMybatisSqlSessionFactory sqlSessionFactory 
-	= new OracleMybatisSqlSessionFactory();
-	private MemberDao memberDAO = new MemberDAOImpl();
+	private SqlSessionFactory sqlSessionFactory;
+	private MemberDao memberDAO;
+	 
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		this.sqlSessionFactory = sqlSessionFactory;
+	}
+
+	public void setMemberDAO(MemberDao memberDAO) {
+		this.memberDAO = memberDAO;
+	}
 	
 	@Override
 	public List<MemberVO> getMemberList() throws Exception {
