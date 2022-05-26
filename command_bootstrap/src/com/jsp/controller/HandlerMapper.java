@@ -36,7 +36,6 @@ public class HandlerMapper {
 
 				// 의존주입
 				// 의존성 확인 및 조립
-
 				Method[] methods = actionClass.getMethods();
 
 				for (Method method : methods) {
@@ -48,7 +47,6 @@ public class HandlerMapper {
 						System.out.println(
 								"[HandlerMapper : invoke"+actionClassName+":"
 						+ ApplicationContext.getApplicationContext().get(paramName));
-						
 					}
 				}
 				commandMap.put(command, commandAction);
@@ -63,10 +61,8 @@ public class HandlerMapper {
 				e.printStackTrace();
 				throw e;
 			}
-
 		}
 	}
-
 	public Action getAction(String url) {
 		Action action = commandMap.get(url);
 		return action;

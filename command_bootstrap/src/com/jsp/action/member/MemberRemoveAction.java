@@ -2,37 +2,40 @@ package com.jsp.action.member;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.jsp.action.Action;
-import com.jsp.controller.FileDownloadResolver;
-import com.jsp.controller.GetUploadPath;
 import com.jsp.dto.MemberVO;
 import com.jsp.service.MemberService;
 
-public class MemberGetPictureAction implements Action {
+public class MemberRemoveAction implements Action {
 	private MemberService memberService;
 	public void setSearchMemberService(MemberService memberSearvice) {
 		this.memberService = memberSearvice;
 	}
-	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String url = null;
-		
+		String url = "/member/delete_success";
 		String id = request.getParameter("id");
-		try {
 		MemberVO member = memberService.getMember(id);
-		
-		String fileName = member.getPicture();
-		
-		String savedPath = GetUploadPath.getUploadPath("member.picture.upload");
-		
-		FileDownloadResolver.sendFile(fileName, savedPath, request, response);
-		}catch(Exception e) {
-			e.printStackTrace();
-			response.sendError(response.SC_INTERNAL_SERVER_ERROR);
+		try {
+			
+			memberService.remove(id);
+			
+			
+		} catch (Exception e) {
+			 url = "/member/delete_fail";
 		}
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		
+		if(loginUser != null && member.getId().equals(loginUser.getId())) {
+			session.invalidate();
+		}
+		request.setAttribute("member", member);
+		
+		
 		return url;
 	}
-
 }

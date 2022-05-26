@@ -14,11 +14,10 @@ import com.jsp.dto.MemberVO;
 import com.jsp.service.MemberService;
 
 public class SearchMemberListAction implements Action {
-
-	private MemberService searchmemberService;
 	
-	public void setSearchMemberService(MemberService searchMemberService) {
-		this.searchmemberService = searchMemberService;
+	private MemberService memberService;
+	public void setSearchMemberService(MemberService memberSearvice) {
+		this.memberService = memberSearvice;
 	}
 	
 	@Override
@@ -48,8 +47,10 @@ public class SearchMemberListAction implements Action {
 		}
 		
 		try {
-			Map<String,Object> dataMap = searchmemberService.getMemberListForPage(cri);
+			Map<String,Object> dataMap = memberService.getMemberListForPage(cri);
+			System.out.println(dataMap);
 			List<MemberVO>memberList = (List<MemberVO>)dataMap.get("memberList");
+		
 			PageMaker pageMaker = (PageMaker)dataMap.get("pageMaker");
 			request.setAttribute("memberList", memberList);
 			request.setAttribute("pageMaker", pageMaker);
