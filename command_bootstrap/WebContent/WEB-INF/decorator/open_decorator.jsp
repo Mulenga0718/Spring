@@ -7,3 +7,4 @@
 	<decorator:body/>
 
 <%@ include file="./open/footer.jsp" %>
+

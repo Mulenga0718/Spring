@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div class="wrapper">
+
 	<div>
 		<!-- Main content -->
 <section class="content-header">
@@ -122,65 +122,13 @@
 		<!-- card-body -->
 		<div class="card-footer">
 			<!-- pagination -->
-			<nav aria-label="Navigation">
-
-
-				<ul class="pagination justify-content-center m-0">
-					
-					<li class="page-item"><a class="page-link" href="javascript:list_go(1)"> <i
-							class="fas fa-angle-double-left"></i>
-					</a>
-					<li class="page-item"><a class="page-link" href=""> <i
-							class="fas fa-angle-left"></i>
-					</a></li>
-					<c:set var="startPage" value= "${pageMaker.getStartPage() }"/>
-					<c:set var="endPage" value= "${pageMaker.getEndPage() }"/>
-					<c:set var="pageNum" value= "${pageMaker.getCri().getPage() }"/>
-				
-					<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1" varStatus="status">
-					
-					<li class="page-item ${i==pageNum?"active":""}"><a class="page-link" href="javascript:list_go(${ i })">
-							${ i } </a></li>
-					</c:forEach>
-					
-					
-					<li class="page-item"><a class="page-link" href=""> <i
-							class="fas fa-angle-right"></i>
-					</a></li>
-					<li class="page-item"><a class="page-link" href=""> <i
-							class="fas fa-angle-double-right"></i>
-					</a></li>
-				
-					</ul>
-				</nav>
+			<%@ include file= "/WEB-INF/views/common/pagination.jsp"%>
+			
 			</div>
 		</div>
 	</section>
 </div>
-<form id ="jobForm">
-	<input type="hidden" name="page" value="">
-	<input type="hidden" name="perPageNum" value="">
-	<input type="hidden" name="searchType" value="">
-	<input type="hidden" name="keyword" value="">
-</form>
-		<script>
-		function list_go(page,url){
-			//alert(page);
-			if(!url) url="list.do";
-			
-			var jobForm=$('#jobForm');
-			jobForm.find("[name='page']").val(page);
-			jobForm.find("[name='perPageNum']").val($('select[name="perPageNum"]').val());
-			jobForm.find("[name='searchType']").val($('select[name="searchType"]').val())
-			jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val())
-			jobForm.attr({
-				action:url,
-				method:'get'
-			}).submit();
-			
-		}
-		
-		</script>
+
 		
 		<script type="text/javascript">
 		window.onload = function(){
