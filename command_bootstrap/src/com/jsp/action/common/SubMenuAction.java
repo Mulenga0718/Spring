@@ -26,7 +26,7 @@ public class SubMenuAction implements Action{
 			
 			//
 			ObjectMapper mapper = new ObjectMapper();
-			
+		
 			
 			//
 			response.setContentType("application/json; charset=utf-8");

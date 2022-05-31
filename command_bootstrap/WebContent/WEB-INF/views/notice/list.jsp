@@ -95,6 +95,7 @@
 							</td>			
 							<td data-target="notice-writer">${notice.writer}<td>							
 								<fmt:formatDate value="${notice.regDate }" pattern="yyyy-MM-dd"/>
+						
 							</td>
 							<td><span class="badge bg-red">${notice.viewcnt }</span></td>		
 						</tr>

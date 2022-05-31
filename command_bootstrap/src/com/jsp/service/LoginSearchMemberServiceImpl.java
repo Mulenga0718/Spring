@@ -21,8 +21,6 @@ public class LoginSearchMemberServiceImpl extends SearchMemberServiceImpl implem
 		this.memberDAO = memberDAO;
 	}
 
-
-
 	@Override
 	public void login(String id, String pwd) throws NotFoundIdException, InvalidPasswordException, SQLException {
 		SqlSession session = sqlSessionFactory.openSession();

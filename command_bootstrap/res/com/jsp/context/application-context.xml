@@ -12,6 +12,7 @@
 	      class="com.jsp.dao.SearchMemberDAOImpl" />
 	<bean id="menuDAO" class="com.jsp.dao.MenuDAOImpl"/>
 	<bean id="noticeDAO" class="com.jsp.dao.NoticeDAOImpl"/>
+	<bean id="boardDAO" class="com.jsp.dao.BoardDAOImpl"/>
 	
 	<!-- Service -->
 	<bean id="noticeService" class="com.jsp.service.NoticeServiceImpl">
@@ -33,11 +34,16 @@
 	<bean id="menuService" class="com.jsp.service.MenuServiceImpl">
 		<property name="sqlSessionFactory"  ref-value="sqlSessionFactory"/>
 		<property name="menuDAO"  ref-value="menuDAO"/>     
-	</bean>      
+	</bean>  
+	<bean id="boardService" class="com.jsp.service.BoardServiceImpl">
+		<property name="sqlSessionFactory"  ref-value="sqlSessionFactory"/>
+		<property name="boardDAO"  ref-value="boardDAO"/>     
+	</bean>    
 	<bean id="loginSearchMemberService" class="com.jsp.service.LoginSearchMemberServiceImpl">
 		<property name="memberDAO" ref-value="searchMemberDAO" />
 		<property name="searchMemberDAO" ref-value="searchMemberDAO" />
 		<property name="sqlSessionFactory" ref-value="sqlSessionFactory"/>
 		<property name="sqlSessionFactoryForLogin" ref-value="sqlSessionFactory"/>
 	</bean>
+	
 </beans>
