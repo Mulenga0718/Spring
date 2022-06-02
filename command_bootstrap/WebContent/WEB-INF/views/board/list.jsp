@@ -106,7 +106,7 @@
 								
 									<td class="dtr-control sorting_1" tabindex="0"
 										style="text-align: center">${boardlist.bno }</td>
-									<td onclick="location.href='detail?bno=${boardlist.bno }'"
+									<td onclick="OpenWindow('detail.do?bno=${boardlist.bno }','게시글 등록',900,800);"
 										style="cursor: pointer">${boardlist.title }</td>
 									<td style="text-align: center">${boardlist.writer}</td>
 									<td style="text-align: center"><fmt:formatDate
