@@ -72,4 +72,5 @@ public class NoticeDAOImpl implements NoticeDAO {
 	public void deleteNotice(SqlSession session, int nno) throws SQLException {
 		session.update("Notice-Mapper.deleteNotice", nno);
 	}
+	
 }
